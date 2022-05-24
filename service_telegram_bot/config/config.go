@@ -7,9 +7,15 @@ import (
 )
 
 type Config struct {
+	Server                Server                `yaml:"server"`
 	CryptoCurrencyService CryptoCurrencyService `yaml:"crypto-currency-service"`
 	Telegram              Telegram              `yaml:"telegram"`
 	Postgres              postgres.Config       `yaml:"postgres"`
+}
+
+type Server struct {
+	Port        int `yaml:"port"`
+	GatewayPort int `yaml:"gateway-port"`
 }
 
 type CryptoCurrencyService struct {

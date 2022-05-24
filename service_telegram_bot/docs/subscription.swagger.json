@@ -93,18 +93,10 @@
         },
         "parameters": [
           {
-            "name": "UserID",
+            "name": "CryptoCurrencySymbol",
             "in": "query",
             "required": false,
-            "type": "string",
-            "format": "int64"
-          },
-          {
-            "name": "CryptoCurrencyID",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "int64"
+            "type": "string"
           },
           {
             "name": "Interval",
@@ -139,10 +131,6 @@
           "format": "int64"
         },
         "UserID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "CryptoCurrencyID": {
           "type": "string",
           "format": "int64"
         },

@@ -8,6 +8,7 @@ services:
       dockerfile: ./Dockerfile.local
     ports:
       - "8080:8080"
+      - "8081:8081"
     depends_on:
       - service_crypto_bot
     environment:
@@ -22,7 +23,8 @@ services:
       context: ./service_crypto_currency
       dockerfile: ./Dockerfile.local
     ports:
-      - "8081:8081"
+      - "8082:8082"
+      - "8083:8083"
     depends_on:
       - crypto_currency_db
     environment:

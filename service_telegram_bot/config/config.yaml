@@ -1,3 +1,7 @@
+server:
+  port: 8082
+  gateway-port: 8083
+
 crypto-currency-service:
   host: service_crypto_bot
   port: 8080

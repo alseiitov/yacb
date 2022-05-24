@@ -1,7 +1,7 @@
 package entity
 
 import (
-	"github.com/alseiitov/yacb/service_crypto_currency/proto/pb"
+	"github.com/alseiitov/yacb/service_telegram_bot/proto/pb"
 	"google.golang.org/protobuf/types/known/durationpb"
 	"time"
 )

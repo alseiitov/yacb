@@ -54,15 +54,5 @@ func (g *Gateway) RegisterHandlers() error {
 		return fmt.Errorf("failed to register rate service handler: %w", err)
 	}
 
-	err = pb.RegisterSubscriptionServiceHandler(context.Background(), g.mux, g.conn)
-	if err != nil {
-		return fmt.Errorf("failed to register subscription service handler: %w", err)
-	}
-
-	err = pb.RegisterUserServiceHandler(context.Background(), g.mux, g.conn)
-	if err != nil {
-		return fmt.Errorf("failed to register user service handler: %w", err)
-	}
-
 	return nil
 }

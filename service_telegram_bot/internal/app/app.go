@@ -2,7 +2,12 @@ package app
 
 import (
 	"context"
+	"fmt"
 	"github.com/alseiitov/yacb/pkg/postgres"
+	grpc_service "github.com/alseiitov/yacb/service_telegram_bot/internal/delivery/grpc"
+	http_service "github.com/alseiitov/yacb/service_telegram_bot/internal/delivery/http"
+	"net"
+
 	"github.com/alseiitov/yacb/service_telegram_bot/config"
 	telegram_handler "github.com/alseiitov/yacb/service_telegram_bot/internal/delivery/telegram"
 	"github.com/alseiitov/yacb/service_telegram_bot/internal/pkg/tgbotapi_handler"
@@ -11,6 +16,7 @@ import (
 	"github.com/alseiitov/yacb/service_telegram_bot/internal/usecase/clients"
 	"github.com/alseiitov/yacb/service_telegram_bot/internal/usecase/repo"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	"google.golang.org/grpc"
 	"log"
 )
 
@@ -59,5 +65,37 @@ func Run(cfg *config.Config) {
 	tgMux := tgbotapi_handler.New(bot, updateCfg)
 	tgHandler.InitRoutes(tgMux)
 
-	tgMux.ListenAndServe()
+	go func() {
+		tgMux.ListenAndServe()
+	}()
+
+	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", cfg.Server.Port))
+	if err != nil {
+		log.Fatalln("Failed to listen:", err)
+	}
+
+	server := grpc.NewServer()
+	grpcServiceServers := grpc_service.NewServiceServers(subscriptionsUseCase)
+	grpcServiceServers.Register(server)
+
+	// Serve gRPC server
+	grpcAddress := fmt.Sprintf("0.0.0.0:%d", cfg.Server.Port)
+	log.Printf("Serving gRPC on %s", grpcAddress)
+	go func() {
+		log.Fatalln(server.Serve(listener))
+	}()
+
+	gatewayServer, err := http_service.NewGatewayServer(grpcAddress, cfg.Server.GatewayPort)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	err = gatewayServer.RegisterHandlers()
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	gatewayAddress := fmt.Sprintf("0.0.0.0:%d", cfg.Server.GatewayPort)
+	log.Printf("Serving gRPC-Gateway on %s", gatewayAddress)
+	log.Fatalln(gatewayServer.Server.ListenAndServe())
 }

@@ -4,8 +4,8 @@ import (
 	"context"
 	"github.com/alseiitov/yacb/service_telegram_bot/internal/entity"
 	"github.com/alseiitov/yacb/service_telegram_bot/internal/usecase"
+	"github.com/alseiitov/yacb/service_telegram_bot/proto/pb"
 
-	"github.com/alseiitov/yacb/service_crypto_currency/proto/pb"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
@@ -23,9 +23,7 @@ func NewSubscriptionServer(uc usecase.Subscription) *subscriptionServer {
 func (s *subscriptionServer) Subscribe(ctx context.Context, in *pb.SubscribeRequest) (*emptypb.Empty, error) {
 
 	subscription := entity.Subscription{
-		UserID: in.GetUserID(),
-		// TODO
-		Symbol:         "",
+		Symbol:         in.GetCryptoCurrencySymbol(),
 		UpdateInterval: in.GetInterval().AsDuration(),
 	}
 

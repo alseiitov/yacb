@@ -27,9 +27,8 @@ service SubscriptionService {
 }
 
 message SubscribeRequest {
-  int64 UserID = 1;
-  int64 CryptoCurrencyID = 2;
-  google.protobuf.Duration Interval = 3;
+  string CryptoCurrencySymbol = 1;
+  google.protobuf.Duration Interval = 2;
 }
 
 message GetUserSubscriptionsRequest {
@@ -43,10 +42,9 @@ message GetUserSubscriptionsResponse {
 message Subscription {
   int64 ID = 1;
   int64 UserID = 2;
-  int64 CryptoCurrencyID = 3;
-  string CryptoCurrencySymbol = 4;
-  string CryptoCurrencyName = 5;
-  google.protobuf.Duration Interval = 6;
+  string CryptoCurrencySymbol = 3;
+  string CryptoCurrencyName = 4;
+  google.protobuf.Duration Interval = 5;
 }
 
 message UnsubscribeRequest {
