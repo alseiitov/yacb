@@ -1,0 +1,164 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "rate.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "RateService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/rate-change": {
+      "get": {
+        "operationId": "RateService_GetRateChange",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetRateChangeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "CryptoCurrencySymbol",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "Period",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "RateService"
+        ]
+      }
+    },
+    "/api/v1/rate-current": {
+      "get": {
+        "operationId": "RateService_GetCurrentRate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoRate"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "CryptoCurrencySymbol",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "RateService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protoGetRateChangeResponse": {
+      "type": "object",
+      "properties": {
+        "CryptoCurrencyName": {
+          "type": "string"
+        },
+        "PrevPrice": {
+          "type": "number",
+          "format": "float"
+        },
+        "CurrPrice": {
+          "type": "number",
+          "format": "float"
+        },
+        "PriceChange": {
+          "type": "number",
+          "format": "float"
+        },
+        "PriceChangePercentage": {
+          "type": "number",
+          "format": "float"
+        },
+        "PrevDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "CurrDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "protoRate": {
+      "type": "object",
+      "properties": {
+        "CryptoCurrencyID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "Price": {
+          "type": "number",
+          "format": "float"
+        },
+        "Date": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

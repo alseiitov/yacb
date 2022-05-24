@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+
+package proto;
+
+option go_package = "./pb";
+
+service UserService {
+  rpc Register(RegisterRequest) returns (RegisterResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/users"
+    };
+  };
+  rpc Unregister(UnregisterRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/api/v1/users"
+    };
+  };
+}
+
+message RegisterRequest {
+  string Login = 1;
+  string Password = 2;
+}
+
+message RegisterResponse {
+  int64 ID = 1;
+}
+
+message UnregisterRequest {
+  int64 ID = 1;
+}

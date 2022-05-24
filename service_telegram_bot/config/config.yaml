@@ -1,0 +1,15 @@
+crypto-currency-service:
+  host: service_crypto_bot
+  port: 8080
+
+telegram:
+  api-key: ${TG_API_KEY}
+  update-timeout: 60
+
+postgres:
+  host: telegram_bot_db
+  port: 5432
+  user: ${POSTGRES_USER}
+  password: ${POSTGRES_PASSWORD}
+  db-name: ${POSTGRES_DB}
+  ssl-mode: false

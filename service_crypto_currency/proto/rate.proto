@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/api/annotations.proto";
+
+
+package proto;
+
+option go_package = "./pb";
+
+service RateService {
+  rpc GetCurrentRate(GetCurrentRateRequest) returns (Rate) {
+    option (google.api.http) = {
+      get: "/api/v1/rate-current"
+    };
+  };
+  rpc GetRateChange(GetRateChangeRequest) returns(GetRateChangeResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/rate-change"
+    };
+  };
+}
+
+message GetCurrentRateRequest {
+  string CryptoCurrencySymbol = 1;
+}
+
+message GetCurrentRateResponse {
+  Rate Prev = 1;
+  Rate Curr = 2;
+}
+
+message Rate {
+  int64 CryptoCurrencyID = 1;
+  float Price = 2;
+  google.protobuf.Timestamp Date = 3;
+}
+
+message GetRateChangeRequest {
+  string CryptoCurrencySymbol = 1;
+  google.protobuf.Duration Period = 2;
+}
+
+message GetRateChangeResponse {
+  string CryptoCurrencyName = 1;
+  float PrevPrice = 2;
+  float CurrPrice = 3;
+  float PriceChange = 4;
+  float PriceChangePercentage = 5;
+  google.protobuf.Timestamp PrevDate = 6;
+  google.protobuf.Timestamp CurrDate = 7;
+}

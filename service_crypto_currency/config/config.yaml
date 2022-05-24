@@ -1,0 +1,14 @@
+server:
+  port: 8080
+  gateway-port: 8081
+
+binance:
+  url: "https://api3.binance.com/api/v3"
+
+postgres:
+  host: crypto_currency_db
+  port: 5432
+  user: ${POSTGRES_USER}
+  password: ${POSTGRES_PASSWORD}
+  db-name: ${POSTGRES_DB}
+  ssl-mode: false

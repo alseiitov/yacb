@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+
+package proto;
+
+option go_package = "./pb";
+
+service CryptoCurrencyService {
+  rpc GetCryptoCurrencies(google.protobuf.Empty) returns(GetCurrenciesResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/currencies"
+    };
+  };
+}
+
+message GetCurrenciesResponse {
+  repeated CryptoCurrency CryptoCurrencies = 1;
+}
+
+message CryptoCurrency {
+  int64 id = 1;
+  string symbol = 2;
+  string name = 3;
+}

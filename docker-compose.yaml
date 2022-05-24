@@ -1,0 +1,57 @@
+version: "3.9"
+
+services:
+  service_telegram_bot:
+    restart: always
+    build:
+      context: ./service_telegram_bot
+      dockerfile: ./Dockerfile.local
+    ports:
+      - "8080:8080"
+    depends_on:
+      - service_crypto_bot
+    environment:
+      - TG_API_KEY=${TG_API_KEY}
+      - POSTGRES_DB=${POSTGRES_DB_TB}
+      - POSTGRES_USER=${POSTGRES_USER_TB}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD_TB}
+
+  service_crypto_bot:
+    restart: always
+    build:
+      context: ./service_crypto_currency
+      dockerfile: ./Dockerfile.local
+    ports:
+      - "8081:8081"
+    depends_on:
+      - crypto_currency_db
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB_CC}
+      - POSTGRES_USER=${POSTGRES_USER_CC}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD_CC}
+
+  crypto_currency_db:
+    restart: always
+    image: postgres:13-alpine
+    container_name: crypto_currency_db
+    volumes:
+      - ./.pgdata_cc:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB_CC}
+      - POSTGRES_USER=${POSTGRES_USER_CC}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD_CC}
+
+  telegram_bot_db:
+    restart: always
+    image: postgres:13-alpine
+    container_name: telegram_bot_db
+    volumes:
+      - ./.pgdata_tb:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB_TB}
+      - POSTGRES_USER=${POSTGRES_USER_TB}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD_TB}

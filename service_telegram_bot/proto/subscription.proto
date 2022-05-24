@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/duration.proto";
+
+package proto;
+
+option go_package = "./pb";
+
+service SubscriptionService {
+  rpc Subscribe(SubscribeRequest) returns (google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/api/v1/subscriptions"
+    };
+  };
+  rpc GetUserSubscriptions(GetUserSubscriptionsRequest) returns (GetUserSubscriptionsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/subscriptions"
+    };
+  };
+  rpc Unsubscribe(UnsubscribeRequest) returns (google.protobuf.Empty){
+    option (google.api.http) = {
+      delete: "/api/v1/subscriptions"
+    };
+  };
+}
+
+message SubscribeRequest {
+  int64 UserID = 1;
+  int64 CryptoCurrencyID = 2;
+  google.protobuf.Duration Interval = 3;
+}
+
+message GetUserSubscriptionsRequest {
+  int64 UserID = 1;
+}
+
+message GetUserSubscriptionsResponse {
+  repeated Subscription Subscriptions = 1;
+}
+
+message Subscription {
+  int64 ID = 1;
+  int64 UserID = 2;
+  int64 CryptoCurrencyID = 3;
+  string CryptoCurrencySymbol = 4;
+  string CryptoCurrencyName = 5;
+  google.protobuf.Duration Interval = 6;
+}
+
+message UnsubscribeRequest {
+  int64 SubscriptionID = 1;
+}
