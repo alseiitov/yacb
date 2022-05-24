@@ -1,4 +1,4 @@
-name: Deploy
+name: deploy
 
 on:
   push:
@@ -23,7 +23,7 @@ jobs:
           target: "~/app"
 
       - name: Executing remote command
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v0.1.3
         with:
           HOST: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.USERNAME }}
@@ -31,24 +31,13 @@ jobs:
           KEY: ${{ secrets.SSHKEY }}
           script: |
             # Set env variables
-            export TG_API_KEY="${secrets.TG_API_KEY}"
-            export POSTGRES_DB_CC="${secrets.POSTGRES_DB_CC}"
-            export POSTGRES_USER_CC="${secrets.POSTGRES_USER_CC}"
-            export POSTGRES_PASSWORD_CC="${secrets.POSTGRES_PASSWORD_CC}"
-            export POSTGRES_DB_TB="${secrets.POSTGRES_DB_TB}"
-            export POSTGRES_USER_TB="${secrets.POSTGRES_USER_TB}"
-            export POSTGRES_PASSWORD_TB="${secrets.POSTGRES_PASSWORD_TB}"
+            export TG_API_KEY="${{secrets.TG_API_KEY}}"
+            export POSTGRES_DB_CC="${{secrets.POSTGRES_DB_CC}}"
+            export POSTGRES_USER_CC="${{secrets.POSTGRES_USER_CC}}"
+            export POSTGRES_PASSWORD_CC="${{secrets.POSTGRES_PASSWORD_CC}}"
+            export POSTGRES_DB_TB="${{secrets.POSTGRES_DB_TB}}"
+            export POSTGRES_USER_TB="${{secrets.POSTGRES_USER_TB}}"
+            export POSTGRES_PASSWORD_TB="${{secrets.POSTGRES_PASSWORD_TB}}"
             
-            cd ~/app
-            
-            # build binaries
-            make build
-            
-            # restart app
-            docker-compose stop
-            docker-compose rm -f
-            docker-compose pull
-            docker-compose up -d
-            
-            # migrate
-            make migrate-up
+            # run
+            /bin/bash ~/run.sh
