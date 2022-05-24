@@ -1,6 +1,7 @@
 include .env
 
 .PHONY: build migrate_up migrate_down protoc install-goose
+.SILENT: migrate-up migrate-down
 
 build:
 	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o ./service_crypto_currency/build/app ./service_crypto_currency/cmd/main.go
