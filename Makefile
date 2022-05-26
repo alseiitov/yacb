@@ -16,19 +16,29 @@ migrate-down:
 	goose --dir service_telegram_bot/migrations postgres "user=${POSTGRES_USER_TB} password=${POSTGRES_PASSWORD_TB} dbname=${POSTGRES_DB_TB} port=5433 sslmode=disable" down
 
 protoc:
-	protoc -I ./service_crypto_currency/proto \
-		--go_out=./service_crypto_currency/proto  \
-		--go-grpc_out=./service_crypto_currency/proto \
-		--grpc-gateway_out=./service_crypto_currency/proto \
-		--openapiv2_out=./service_crypto_currency/docs \
-		./service_crypto_currency/proto/*.proto
+	protoc 	-I ./service_crypto_currency/proto \
+			--go_out=./service_crypto_currency/proto  \
+			--go-grpc_out=./service_crypto_currency/proto \
+			--grpc-gateway_out=./service_crypto_currency/proto \
+			--openapiv2_out=./service_crypto_currency/docs \
+			./service_crypto_currency/proto/*.proto
 
-	protoc -I ./service_telegram_bot/proto \
-		--go_out=./service_telegram_bot/proto  \
-		--go-grpc_out=./service_telegram_bot/proto \
-		--grpc-gateway_out=./service_telegram_bot/proto \
-		--openapiv2_out=./service_telegram_bot/docs \
-		./service_telegram_bot/proto/*.proto
+	protoc 	-I ./service_telegram_bot/proto \
+			--go_out=./service_telegram_bot/proto  \
+			--go-grpc_out=./service_telegram_bot/proto \
+			--grpc-gateway_out=./service_telegram_bot/proto \
+			--openapiv2_out=./service_telegram_bot/docs \
+			./service_telegram_bot/proto/*.proto
+
+gen:
+	mockgen -source=service_crypto_currency/internal/usecase/interfaces.go \
+			-destination=service_crypto_currency/internal/usecase/mocks/mock.go
+
+	mockgen -source=service_telegram_bot/internal/usecase/interfaces.go \
+			-destination=service_telegram_bot/internal/usecase/mocks/mock.go
+
+	mockgen -source=service_telegram_bot/internal/scheduler/scheduler.go \
+			-destination=service_telegram_bot/internal/scheduler/mocks/mock.go
 
 install-goose:
 	go install github.com/pressly/goose/v3/cmd/goose@latest

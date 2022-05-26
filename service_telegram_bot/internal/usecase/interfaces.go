@@ -6,6 +6,8 @@ import (
 	"time"
 )
 
+//go:generate mockgen -source=interfaces.go -destination=mocks/mock.go
+
 type (
 	User interface {
 		IsRegistered(ctx context.Context, id int64) (bool, error)

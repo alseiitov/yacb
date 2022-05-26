@@ -12,6 +12,8 @@ import (
 	"time"
 )
 
+//go:generate mockgen -source=scheduler.go -destination=mocks/mock.go
+
 type Scheduler interface {
 	AddSubscriptions(subs ...entity.Subscription)
 	AddSubscription(sub entity.Subscription)
