@@ -18,7 +18,6 @@ require (
 )
 
 require (
-	bou.ke/monkey v1.0.2 // indirect
 	github.com/golang/glog v1.0.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
@@ -29,13 +28,18 @@ require (
 	github.com/jackc/pgservicefile v0.0.0-20200714003250-2b9c44734f2b // indirect
 	github.com/jackc/pgtype v1.11.0 // indirect
 	github.com/jackc/puddle v1.2.1 // indirect
-	github.com/kr/text v0.2.0 // indirect
-	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97 // indirect
-	golang.org/x/net v0.0.0-20220425223048-2871e0cb64e4 // indirect
 	golang.org/x/sys v0.0.0-20211216021012-1d35b9e2eb4e // indirect
 	golang.org/x/text v0.3.7 // indirect
-	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	sigs.k8s.io/yaml v1.3.0 // indirect
+)
+
+require (
+	bou.ke/monkey v1.0.2
+	github.com/kr/text v0.2.0 // indirect
+	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
+	golang.org/x/net v0.0.0-20220425223048-2871e0cb64e4 // indirect
+	golang.org/x/sync v0.0.0-20200625203802-6e8e738ad208
+	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
 )

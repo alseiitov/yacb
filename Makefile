@@ -34,5 +34,11 @@ gen:
 	mockgen -source=service_crypto_currency/internal/usecase/interfaces.go \
 			-destination=service_crypto_currency/internal/usecase/mocks/mock.go
 
+	mockgen -source=service_telegram_bot/internal/usecase/interfaces.go \
+			-destination=service_telegram_bot/internal/usecase/mocks/mock.go
+
+	mockgen -source=service_telegram_bot/internal/scheduler/scheduler.go \
+			-destination=service_telegram_bot/internal/scheduler/mocks/mock.go
+
 install-goose:
 	go install github.com/pressly/goose/v3/cmd/goose@latest

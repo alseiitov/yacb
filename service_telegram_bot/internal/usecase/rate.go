@@ -21,10 +21,11 @@ func NewRatesUseCase(cryptoCurrencyClient CryptoCurrencyClient) *RateUseCase {
 
 func (uc *RateUseCase) GetCurrentRates(ctx context.Context) ([]entity.Rate, error) {
 
-	rates := make([]entity.Rate, 0, len(currencies.Currencies))
+	rates := make([]entity.Rate, 0, len(currencies.List))
 	wg := sync.WaitGroup{}
 
-	for _, c := range currencies.Currencies {
+	for _, curr := range currencies.List {
+		c := currencies.Currencies[curr]
 		wg.Add(1)
 		go func(currency entity.Currency) {
 			defer wg.Done()
