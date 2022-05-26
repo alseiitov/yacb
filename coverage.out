@@ -1,0 +1,26 @@
+mode: set
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/crypto_currency.go:12.76,16.2 1 1
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/crypto_currency.go:18.108,20.2 1 1
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/rate.go:23.116,29.2 1 1
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/rate.go:31.47,34.16 2 1
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/rate.go:38.2,41.88 3 1
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/rate.go:59.2,59.43 1 1
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/rate.go:70.2,70.12 1 1
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/rate.go:34.16,36.3 1 1
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/rate.go:41.88,45.17 3 1
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/rate.go:49.3,53.17 4 1
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/rate.go:45.17,48.4 2 0
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/rate.go:53.17,56.4 2 0
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/rate.go:59.43,64.39 3 1
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/rate.go:68.3,68.12 1 1
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/rate.go:64.39,67.4 2 1
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/rate.go:73.76,75.2 1 1
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/rate.go:77.96,80.16 2 1
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/rate.go:84.2,84.18 1 1
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/rate.go:80.16,82.3 1 1
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/rate.go:87.123,93.16 4 1
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/rate.go:97.2,98.16 2 1
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/rate.go:102.2,102.54 1 1
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/rate.go:93.16,95.3 1 1
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/rate.go:98.16,100.3 1 1
+github.com/alseiitov/yacb/service_crypto_currency/internal/usecase/usecase.go:12.13,17.2 1 0

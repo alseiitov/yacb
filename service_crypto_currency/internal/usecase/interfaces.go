@@ -6,6 +6,8 @@ import (
 	"time"
 )
 
+//go:generate mockgen -source=interfaces.go -destination=mocks/mock.go
+
 type (
 	CryptoCurrency interface {
 		GetCryptoCurrencies(ctx context.Context) ([]entity.CryptoCurrency, error)
@@ -23,7 +25,7 @@ type (
 	}
 
 	RateRepo interface {
-		Create(ctx context.Context, user entity.Rate) error
+		Create(ctx context.Context, rate entity.Rate) error
 		GetRateByDate(ctx context.Context, symbol string, datetime time.Time) (entity.Rate, error)
 	}
 
