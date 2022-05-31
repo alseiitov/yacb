@@ -4,8 +4,8 @@ services:
   service_telegram_bot:
     restart: always
     build:
-      context: ./service_telegram_bot
-      dockerfile: ./Dockerfile.local
+      context: .
+      dockerfile: service_telegram_bot/Dockerfile
     ports:
       - "8080:8080"
       - "8081:8081"
@@ -20,8 +20,8 @@ services:
   service_crypto_bot:
     restart: always
     build:
-      context: ./service_crypto_currency
-      dockerfile: ./Dockerfile.local
+      context: .
+      dockerfile: service_crypto_currency/Dockerfile
     ports:
       - "8082:8082"
       - "8083:8083"
@@ -37,7 +37,7 @@ services:
     image: postgres:13-alpine
     container_name: crypto_currency_db
     volumes:
-      - ./.pgdata_cc:/var/lib/postgresql/data
+      - ~/.pgdata_cc:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     environment:
@@ -50,7 +50,7 @@ services:
     image: postgres:13-alpine
     container_name: telegram_bot_db
     volumes:
-      - ./.pgdata_tb:/var/lib/postgresql/data
+      - ~/.pgdata_tb:/var/lib/postgresql/data
     ports:
       - "5433:5432"
     environment:

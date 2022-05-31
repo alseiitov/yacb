@@ -11,6 +11,7 @@ import (
 
 	entity "github.com/alseiitov/yacb/service_telegram_bot/internal/entity"
 	gomock "github.com/golang/mock/gomock"
+	cron "github.com/robfig/cron/v3"
 )
 
 // MockScheduler is a mock of Scheduler interface.
@@ -76,16 +77,18 @@ func (mr *MockSchedulerMockRecorder) DeleteSubscription(id interface{}) *gomock.
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteSubscription", reflect.TypeOf((*MockScheduler)(nil).DeleteSubscription), id)
 }
 
-// Run mocks base method.
-func (m *MockScheduler) Run(ctx context.Context) {
+// InitJobs mocks base method.
+func (m *MockScheduler) InitJobs(ctx context.Context, cron *cron.Cron) error {
 	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "Run", ctx)
+	ret := m.ctrl.Call(m, "InitJobs", ctx, cron)
+	ret0, _ := ret[0].(error)
+	return ret0
 }
 
-// Run indicates an expected call of Run.
-func (mr *MockSchedulerMockRecorder) Run(ctx interface{}) *gomock.Call {
+// InitJobs indicates an expected call of InitJobs.
+func (mr *MockSchedulerMockRecorder) InitJobs(ctx, cron interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Run", reflect.TypeOf((*MockScheduler)(nil).Run), ctx)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "InitJobs", reflect.TypeOf((*MockScheduler)(nil).InitJobs), ctx, cron)
 }
 
 // MockCryptoCurrencyClient is a mock of CryptoCurrencyClient interface.

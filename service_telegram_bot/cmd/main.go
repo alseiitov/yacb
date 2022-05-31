@@ -9,7 +9,7 @@ import (
 
 func main() {
 
-	b, err := os.ReadFile("./config/config.yaml")
+	b, err := os.ReadFile("./service_telegram_bot/config/config.yaml")
 	if err != nil {
 		log.Fatal(err)
 	}

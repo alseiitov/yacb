@@ -3,7 +3,6 @@ package postgres
 import (
 	"context"
 	"fmt"
-	"github.com/pkg/errors"
 	"time"
 
 	"github.com/jackc/pgx/v4/pgxpool"
@@ -29,7 +28,7 @@ const (
 
 // NewPgxConn pool
 func NewPgxConn(cfg Config) (*pgxpool.Pool, error) {
-	
+
 	ctx := context.Background()
 
 	dsn := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s",
@@ -52,10 +51,5 @@ func NewPgxConn(cfg Config) (*pgxpool.Pool, error) {
 	poolCfg.MinConns = minConn
 	poolCfg.LazyConnect = lazyConnect
 
-	connPool, err := pgxpool.ConnectConfig(ctx, poolCfg)
-	if err != nil {
-		return nil, errors.Wrap(err, "pgx.ConnectConfig")
-	}
-
-	return connPool, nil
+	return pgxpool.ConnectConfig(ctx, poolCfg)
 }

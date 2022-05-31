@@ -18,7 +18,7 @@ type Scheduler interface {
 	AddSubscriptions(subs ...entity.Subscription)
 	AddSubscription(sub entity.Subscription)
 	DeleteSubscription(id int64)
-	Run(ctx context.Context)
+	InitJobs(ctx context.Context, cron *cron.Cron) error
 }
 
 type CryptoCurrencyClient interface {
@@ -78,9 +78,7 @@ func (s *scheduler) DeleteSubscription(id int64) {
 	}
 }
 
-func (s *scheduler) Run(ctx context.Context) {
-
-	c := cron.New()
+func (s *scheduler) InitJobs(ctx context.Context, cron *cron.Cron) error {
 
 	worker := func(inter intervals.Interval, curr currencies.Currency) {
 		<-time.After(30 * time.Second)
@@ -107,16 +105,19 @@ func (s *scheduler) Run(ctx context.Context) {
 	}
 
 	for inter, spec := range сronSpecs {
-		func(inter intervals.Interval, spec string) {
-			c.AddFunc(spec, func() {
+		err := func(inter intervals.Interval, spec string) error {
+			_, err := cron.AddFunc(spec, func() {
 				for curr := range currencies.Currencies {
 					go worker(inter, curr)
 				}
 			})
+			return err
 		}(inter, spec)
+		if err != nil {
+			return err
+		}
 	}
-
-	c.Start()
+	return nil
 }
 
 func removeInt(s []entity.Subscription, i int) []entity.Subscription {

@@ -6,6 +6,7 @@ import (
 	"github.com/alseiitov/yacb/pkg/postgres"
 	grpc_service "github.com/alseiitov/yacb/service_telegram_bot/internal/delivery/grpc"
 	http_service "github.com/alseiitov/yacb/service_telegram_bot/internal/delivery/http"
+	"github.com/robfig/cron/v3"
 	"net"
 
 	"github.com/alseiitov/yacb/service_telegram_bot/config"
@@ -21,6 +22,7 @@ import (
 )
 
 func Run(cfg *config.Config) {
+	ctx := context.Background()
 
 	pgxConn, err := postgres.NewPgxConn(cfg.Postgres)
 	if err != nil {
@@ -42,8 +44,12 @@ func Run(cfg *config.Config) {
 
 	scheduler := scheduler.New(bot, cryptoCurrencyClient)
 
-	usersUseCase := usecase.NewUsersUseCase(repo.NewUserRepo(pgxConn))
-	subscriptionsUseCase := usecase.NewSubscriptionsUseCase(repo.NewSubscriptionRepo(pgxConn), scheduler)
+	usersUseCase := usecase.NewUsersUseCase(
+		repo.NewUserRepo(pgxConn),
+	)
+	subscriptionsUseCase := usecase.NewSubscriptionsUseCase(
+		repo.NewSubscriptionRepo(pgxConn), scheduler,
+	)
 
 	subs, err := subscriptionsUseCase.GetAllSubscriptions(context.Background())
 	if err != nil {
@@ -51,7 +57,13 @@ func Run(cfg *config.Config) {
 	}
 	scheduler.AddSubscriptions(subs...)
 
-	go scheduler.Run(context.Background())
+	c := cron.New()
+	err = scheduler.InitJobs(ctx, c)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	c.Start()
+	defer c.Stop()
 
 	tgHandler := telegram_handler.New(
 		usersUseCase,
