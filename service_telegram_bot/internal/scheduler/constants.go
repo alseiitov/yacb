@@ -8,7 +8,7 @@ var (
 		intervals.TenMinute:    "*/10 * * * *",
 		intervals.ThirtyMinute: "*/30 * * * *",
 		intervals.Hour:         "0 * * * *",
-		intervals.ThreeHours:   "0 */2 * * *",
+		intervals.ThreeHours:   "0 */3 * * *",
 		intervals.SixHours:     "0 */6 * * *",
 		intervals.TwelveHours:  "0 */12 * * *",
 		intervals.Day:          "0 0 * * *",
